@@ -1,0 +1,25 @@
+## exclude listing, logs and deps
+Listings/
+## exclude object files and executable
+Objects/
+## exclude DebugConfig
+DebugConfig/
+## exclude RTE
+RTE/
+## exclude CAN due to copyright
+Source/CAN/
+## exclude CMSIS core due to copyright 
+Source/CMSIS_core/
+## exclude CMSIS files due to copyright
+startup_LPC17xx.s
+system_LPC17xx.c
+
+## a user define gui configuration 
+*.uvguix.*
+
+## project gui configuration
+*.uvprojx
+
+
+## event record during  debug
+*.scvd
