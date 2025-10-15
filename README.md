@@ -75,5 +75,6 @@ For inquiries or collaboration proposals, feel free to reach out via:
 
 ![C](https://img.shields.io/badge/language-C-blue)
 ![Platform](https://img.shields.io/badge/platform-LandTiger%20LPC1768-lightgrey)
-![License](https://img.shields.io/badge/license-All%20Rights%20Reserved-red)
+![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)
+
 
