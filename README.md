@@ -15,7 +15,7 @@ You can try the original online version here: [freepacman.org](https://freepacma
 
 ## ⚙️ Hardware & Implementation Details
 
-We programmed the **LPC1768 SoC** (by **NXP**) in **C**, using the peripherals available on the **LandTiger** development board to recreate a complete gaming experience.
+We had to program the game on the **LPC1768 SoC** (by **NXP**) using the **C** language, and exploiting the components available on the **LandTiger** development board to recreate a complete gaming experience.
 
 ### Features Implemented
 - 🎮 Joystick to control Pac-Man's moves  
@@ -28,7 +28,7 @@ We programmed the **LPC1768 SoC** (by **NXP**) in **C**, using the peripherals a
 ## 📹 Demo
 
 Curious to see the result?  
-👉 Check out the gameplay here: [YouTube Link](https://www.youtube.com/)
+👉 Check out the gameplay here: [YouTube Link](https://www.youtube.com/shorts/BiLacOqi1gU)
 
 ---
 
@@ -44,7 +44,6 @@ These were built upon **ARM’s CMSIS library** for the LPC1768 microcontroller.
 Due to **copyright restrictions**, the CMSIS files and related proprietary material are **excluded** from this repository.  
 You can find the official CMSIS package here:  
 👉 [ARM CMSIS for LPC1768 (Keil)](https://www.keil.arm.com/devices/nxp-lpc1768/features/)
-
 ---
 
 ## ⚖️ License & Copyright ©
