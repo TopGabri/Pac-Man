@@ -1,14 +1,10 @@
-/* **************************************Copyright ©*************************************************************
- * Based on original code provided in the Computer Architectures course
- * at Politecnico di Torino.
- * Modified and extended by Gabriele Arcidiacono
-
- **---------------------------------------File Info--------------------------------------------------------------
+/*********************************************************************************************************
+**--------------File Info---------------------------------------------------------------------------------
 ** File name:           IRQ_timer.c
-** Last modified Date:  2025-02-19
+** Last modified Date:  2014-09-25
 ** Last Version:        V1.00
-** Descriptions:        functions to manage T0, T1 and T2 interrupts 
-** Correlated files:    timer.h, Pacman/
+** Descriptions:        functions to manage T0 and T1 interrupts
+** Correlated files:    timer.h
 **--------------------------------------------------------------------------------------------------------
 *********************************************************************************************************/
 #include <string.h>
@@ -147,6 +143,7 @@ void TIMER0_IRQHandler (void)
 	else 
 	{	
 		respawn_time--;
+		display_resume_timer(respawn_time);
 	}
 
 	//enable_RIT();
@@ -188,7 +185,7 @@ void TIMER1_IRQHandler (void)
 			n_path++;
 			
 			/* how often is path recomputed */
-			if (n_path == 10 || computePath){
+			if (n_path == 5 || computePath){
 				n_path = 0;
 				computePath = FALSE;
 				ghost_movement(PCMN->row, PCMN->col);

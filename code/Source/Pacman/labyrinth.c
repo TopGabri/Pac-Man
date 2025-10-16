@@ -1,17 +1,3 @@
-/***************************************Copyright ©******************************************************************
- * 
- * Copyright © 2025 Gabriele Arcidiacono
- *
- * This work is licensed under the Creative Commons
- * Attribution–NonCommercial 4.0 International License.
- * 
- * You may not use this file for commercial purposes.
- * You must give appropriate credit and indicate if changes were made.
- * 
- * License details: https://creativecommons.org/licenses/by-nc/4.0/
- * 
-*********************************************************************************************************************/
-
 #include "GLCD/GLCD.h" 
 #include "labyrinth.h"
 #include "mapping.h"

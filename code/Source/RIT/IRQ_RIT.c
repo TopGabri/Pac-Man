@@ -1,14 +1,10 @@
-/* **************************************Copyright ©*************************************************************
- * Based on original code provided in the Computer Architectures course
- * at Politecnico di Torino.
- * Modified and extended by Gabriele Arcidiacono
-**---------------------------------------File Info---------------------------------------------------------------
+/*********************************************************************************************************
+**--------------File Info---------------------------------------------------------------------------------
 ** File name:           IRQ_RIT.c
-** Last modified Date:  2025-02-19
+** Last modified Date:  2014-09-25
 ** Last Version:        V1.00
-** Descriptions:        functions to manage RIT interrupts. 
-**						Responsible for joystick driven movement of Pac-man, game start, pause and end, countdown, pills
-** Correlated files:    RIT.h, Pacman/ 
+** Descriptions:        functions to manage T0 and T1 interrupts
+** Correlated files:    RIT.h
 **--------------------------------------------------------------------------------------------------------
 *********************************************************************************************************/
 #include "LPC17xx.h"
@@ -59,6 +55,7 @@ extern Bool playSound;
 extern Bool openingSong;
 extern Bool powerPillSound;
 extern Bool winSong;
+extern Bool gameoverSong;
 
 extern uint8_t num_lives;
 extern uint8_t respawn_time;
@@ -67,7 +64,6 @@ extern uint32_t msg;
 
 uint8_t n_interrupt_pcmn = 0;
 uint8_t n_interrupt_pill = 0;
-uint8_t n_interrupt_param = 0;
 
 void RIT_IRQHandler (void)
 {				
@@ -83,7 +79,7 @@ void RIT_IRQHandler (void)
 	static int ticks = 0;
 		
 	
-	/* button debouncing of KEY1 */
+	/* button debouncing of KEY0 */
 	if((LPC_GPIO2->FIOPIN & (1<<10)) == 0){  /* KEY0 pressed */
 		reset_RIT();
 		switch(pressed){
@@ -92,6 +88,7 @@ void RIT_IRQHandler (void)
 				/* if game ended and KEY0 is pressed, restart */
 				if(ended){
 					disable_RIT();
+					up = down = left = right = 0;
 					pacman();
 				}
 				/*toggle game pause */
@@ -102,9 +99,19 @@ void RIT_IRQHandler (void)
 				break;
 		}
 	}
+	/* button debouncing of KEY1 */
+	else if((LPC_GPIO2->FIOPIN & (1<<11)) == 0){  /* KEY1 pressed */
+		reset_RIT();
+		switch(pressed){
+			case 2:  //50 ms: debouce button KEY1
+				/* if KEY1 is pressed, toggle music*/
+				playSound=!playSound;
+				break;
+		}
+	}
 	else {	/* button released */
 		pressed=0;
-		NVIC_EnableIRQ(EINT1_IRQn);							 /* disable Button interrupts			*/
+		NVIC_EnableIRQ(EINT0_IRQn);							 /* enable Button interrupts			*/
 		LPC_PINCON->PINSEL4    |= (1 << 22);     /* External interrupt 0 pin selection */
 	}
 	
@@ -112,7 +119,7 @@ void RIT_IRQHandler (void)
 	/* SOUND EFFECTS */
 	if (playSound)
 	{
-		/* opening up song: "Francesco Totti - Bello Figo" */
+		/* opening up song: "Sembro Francesco Totti" - Bello Figo */
 		if (openingSong)
 		{
 			if(!isNotePlaying())
@@ -131,9 +138,7 @@ void RIT_IRQHandler (void)
 			}
 		}	
 
-		/* power pill sound effect (to fix) */
-		
-		/*
+		/* power pill sound effect */
 		else if (powerPillSound)
 		{
 		
@@ -149,13 +154,12 @@ void RIT_IRQHandler (void)
 			if(currentNote == (sizeof(power_up) / sizeof(power_up[0])))
 			{
 				powerPillSound = FALSE;
-				playSound=FALSE;
+				//playSound=FALSE;
 				currentNote=0;
 			}
 		}
-		*/
 		
-		/* winnning song */
+		/* winnning song: "I'm Good (Blue)" - David Guetta */
 		else if (winSong)
 		{
 		
@@ -170,8 +174,29 @@ void RIT_IRQHandler (void)
 			}
 			if(currentNote == (sizeof(blue) / sizeof(blue[0])))
 			{
-				powerPillSound = FALSE;
-				playSound=FALSE;
+				winSong = FALSE;
+				//playSound=FALSE;
+				currentNote=0;
+			}
+		}
+		
+		/*GAME OVER song: "My Heart Will go On" - Titanic */
+		else if (gameoverSong)
+		{
+		
+			if(!isNotePlaying())
+			{
+				++ticks;
+				if(ticks == UPTICKS)
+				{
+					ticks = 0;
+					playNote(titanic[currentNote++]);
+				}
+			}
+			if(currentNote == (sizeof(titanic) / sizeof(titanic[0])))
+			{
+				gameoverSong = FALSE;
+				//playSound=FALSE;
 				currentNote=0;
 			}
 		}
@@ -180,33 +205,37 @@ void RIT_IRQHandler (void)
 		
 	/* game logic */
  	
+	/* GAME OCCURRING */
 	if (!ended){
-	/* VICTORY */
+		/* VICTORY */
 		if(victory){
-			disable_timer(0);
-			disable_timer(1);
+			disable_timer(0);   /* disable COUNTDOWN timer */
+			disable_timer(1);		/* disable GHOST movement */
 			ended = 1;
 			LCD_Clear(Black);
 			GUI_Text(88,162, (uint8_t *) "VICTORY!", Green, Black);
-			playSound = TRUE;
+			//playSound = TRUE;
 			winSong=TRUE;
 		}
 		/* GAME OVER */
 		else if (game_over){
-			disable_timer(0);
-			disable_timer(1);
+			disable_timer(0);	/* disable COUNTDOWN timer */
+			disable_timer(1);	/* disable GHOST movement */
 			LCD_Clear(Black);
 			GUI_Text(84,162,(uint8_t *) "GAME OVER", Red, Black);
-			ended = 1;
+			ended = TRUE;
+			currentNote = 0;
+			gameoverSong = TRUE;
 		}
 		/*GAME PAUSED*/
 		else if (pause_game && event){
-			disable_timer(0);
-			disable_timer(1);
+			disable_timer(0);	/* disable COUNTDOWN timer */
+			disable_timer(1);	/* disable GHOST movement */
 			event = FALSE;
 			GUI_Text(11*9+2,38+3+16*9+1,(uint8_t *) "PAUSE",Red,Black);
-			playSound=TRUE;
+			//playSound=TRUE;
 			openingSong=TRUE;
+			currentNote=0;
 		}
 		/* GAME NOT IN PAUSE MODE */
 		else if (hit)
@@ -219,6 +248,7 @@ void RIT_IRQHandler (void)
 				event = FALSE;
 				num_lives--;
 				modified_lives=TRUE;
+				left = right = up = down = 0;
 				if (num_lives == 0)
 					game_over = TRUE;
 			}
@@ -232,38 +262,35 @@ void RIT_IRQHandler (void)
 				/* GAME RESUMED */
 				if(event){
 					event = FALSE;
-					playSound=FALSE;
+					//playSound=FALSE;
 					openingSong=FALSE;
+					currentNote=0;
 					/*
 					ghost_movement(PCMN->row, PCMN->col);
 					currPathIndex = 0;
 					*/
 					computePath=TRUE;
-					enable_timer(0); //countdown timer
-					enable_timer(1); //ghost
+					enable_timer(0);
+					enable_timer(1); 
 					GUI_Text(11*9+2,38+3+16*9+1,(uint8_t *) "     ",Red,Black);
 				}
 				
-
+				/* if any of the 3 parameters is modified, send them over CAN and display only the modified one */
 				if (modified_lives || modified_score || modified_time)
 				{	
-					n_interrupt_param++;
-					/* send SCORE, REMAINING LIVES and COUNTDOWN TIMER to CAN */
+					/* send SCORE, REMAINING LIVES and COUNTDOWN TIMER with CAN */
 					send_parameters_CAN(score, num_lives, game_time); 
-					if(n_interrupt_param==1){
-						n_interrupt_param=0;
-						if (modified_time){
-							display_cntdown_timer((msg & 0xFF000000) >> 24);
-							modified_time=FALSE;
-						}
-						if (modified_lives){
-							display_lives((msg & 0x00FF0000) >> 16);
-							modified_lives=FALSE;
-						}
-						if (modified_score){
-							display_score(msg & 0x0000FFFF);
-							modified_score=FALSE;
-						}
+					if (modified_time){
+						display_cntdown_timer((msg & 0xFF000000) >> 24);
+						modified_time=FALSE;
+					}
+					if (modified_lives){
+						display_lives((msg & 0x00FF0000) >> 16);
+						modified_lives=FALSE;
+					}
+					if (modified_score){
+						display_score(msg & 0x0000FFFF);
+						modified_score=FALSE;
 					}
 				}
 				

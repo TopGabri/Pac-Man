@@ -1,8 +1,3 @@
-/* **************************************Copyright ©*************************************************************
- * Based on original code provided in the Computer Architectures course
- * at Politecnico di Torino.
- * Modified and extended by Gabriele Arcidiacono
- * **************************************************************************************************************/
 
 #include "button.h"
 #include "LPC17xx.h"

@@ -1,24 +1,3 @@
-/***************************************Copyright ©******************************************************************
- * 
- * Copyright © 2025 Gabriele Arcidiacono
- *
- * This work is licensed under the Creative Commons
- * Attribution–NonCommercial 4.0 International License.
- * 
- * You may not use this file for commercial purposes.
- * You must give appropriate credit and indicate if changes were made.
- * 
- * License details: https://creativecommons.org/licenses/by-nc/4.0/
- *
-**--------------------------------------File Info--------------------------------------------------------------------
-** File name:           labyrinth.h
-** Last modified Date:  
-** Last Version:        V1.00
-** Descriptions:        Prototypes of functions and constants included in labyrinth.c file
-** Correlated files:    labyrinth.c
-**-------------------------------------------------------------------------------------------------------------------
-********************************************************************************************************************/
-
 #ifndef __LABYRINTH_H
 #define __LABYRINTH_H
 

@@ -1,17 +1,3 @@
-/***************************************Copyright ©******************************************************************
- * 
- * Copyright © 2025 Gabriele Arcidiacono
- *
- * This work is licensed under the Creative Commons
- * Attribution–NonCommercial 4.0 International License.
- * 
- * You may not use this file for commercial purposes.
- * You must give appropriate credit and indicate if changes were made.
- * 
- * License details: https://creativecommons.org/licenses/by-nc/4.0/
- * 
-*********************************************************************************************************************/
-
 #include "LPC17xx.h"
 #include "game.h"
 #include "pacman.h"
@@ -58,6 +44,7 @@ volatile Bool playSound;
 volatile Bool openingSong;
 volatile Bool powerPillSound;
 volatile Bool winSong;
+volatile Bool gameoverSong;
 
 extern Object_TypeDef labyrinth_mat[ROWS][COLS];
 extern int tot_pills;
@@ -109,6 +96,7 @@ void pacman(){
 	playSound = FALSE;
 	openingSong = FALSE;
 	powerPillSound = FALSE;
+	gameoverSong = FALSE;
 	modified_lives = TRUE;
 	modified_time = TRUE;
 	modified_score = TRUE;
@@ -215,7 +203,6 @@ int move(Direction_TypeDef direction){
 
 	static Bool has_moved;
 	static Object_TypeDef obj;
-	static Bool incremented_lives = FALSE;
 	
 	has_moved=FALSE;
 	
@@ -270,8 +257,9 @@ int move(Direction_TypeDef direction){
 				tot_pills--;
 				score+=50;
 				modified_score=TRUE;
-				playSound=TRUE;
-				powerPillSound=TRUE;
+				//playSound=TRUE;
+				if (playSound)
+					powerPillSound=TRUE;
 				display_pill(PCMN->row,PCMN->col,NOT_PWR_PILL);
 				GHOST->mode = FRIGHTENED;
 				GHOST->Color = Blue2;
@@ -284,22 +272,7 @@ int move(Direction_TypeDef direction){
 			victory = TRUE;
 			return FALSE;
 		}
-		
-		if (score % 1000 == 0)
-		{
-			if (!incremented_lives){ 
-				incremented_lives = TRUE;
-				num_lives++;
-				modified_lives=TRUE;
-				//display_lives(num_lives);
-			} 
-		} 
-		else 
-		{
-			incremented_lives = FALSE;
-		}
 			
-		//display_score(score);	
 		return 1;		
 	}
 	
@@ -343,11 +316,24 @@ int hit_wall(Direction_TypeDef direction){
 	
 }
 
+void display_resume_timer(uint8_t time){
+	
+	char resume_time[2];
+	sprintf(resume_time,"%d", time);
+	
+	if (time == 0)
+		GUI_Text(115,160,(uint8_t *) " ", Red, Black);
+	else 
+		GUI_Text(115,160,(uint8_t *) resume_time, Red, Black);
+}
+
+
 void pacman_dynamics(Direction_TypeDef direction)
 {
 	
 	static Bool has_moved;
 	static int no_movement=0;
+	static Bool incremented_lives = FALSE;
 	
 	switch (PCMN->direction) {
 				
@@ -381,6 +367,20 @@ void pacman_dynamics(Direction_TypeDef direction)
 				default:
 					break;
 				
+			}
+	
+			if (score % 1000 == 0 && score != 0)
+			{
+				if (!incremented_lives){ 
+					incremented_lives = TRUE;
+					num_lives++;
+					modified_lives=TRUE;
+					//display_lives(num_lives);
+				} 
+			} 
+			else 
+			{
+				incremented_lives = FALSE;
 			}
 		
 			if (!has_moved){
@@ -485,7 +485,7 @@ void restart_after_hit(){
 	//display_lives(num_lives);
 	
 	enable_timer(1);
-	respawn_time = 3;
+	respawn_time = RESPAWN_TIME;
 	
 	go = TRUE;
 }
@@ -508,7 +508,8 @@ void initialize_GHOST(){
 	GHOST->col_old = -1;
 	GHOST->direction=NONE;
 	GHOST->old_direction = NONE;
-	GHOST->Color=Red;		 	
+	GHOST->Color=Red;
+	GHOST->mode = CHASE;
 }
 
 Direction_TypeDef opposite_direction(Direction_TypeDef dir){

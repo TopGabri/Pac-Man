@@ -13,10 +13,10 @@
 ** Descriptions:            The original version
 **
 **--------------------------------------------------------------------------------------------------------
-** Modified by:             Gabriele Arcidiacono
-** Modified date:           2025-02-19
-** Version:                 v3.0
-** Descriptions:            Entry point of the C code for the Pac-Man game
+** Modified by:             Paolo Bernardi
+** Modified date:           03/01/2020
+** Version:                 v2.0
+** Descriptions:            basic program for LCD and Touch Panel teaching
 **
 *********************************************************************************************************/
 
@@ -38,8 +38,8 @@ extern uint8_t ScaleFlag; // <- ScaleFlag needs to visible in order for the emul
 
 int main(void)
  {
-	SystemInit();  												/* System Initialization (i.e., PLL)  */
-	LCD_Initialization();
+  SystemInit();  												/* System Initialization (i.e., PLL)  */
+  LCD_Initialization();
 	joystick_init();
 	BUTTON_init();
 	CAN_Init();
@@ -54,7 +54,7 @@ int main(void)
 	LPC_PINCON->PINSEL1 &= ~(1<<20);
 	LPC_GPIO0->FIODIR |= (1<<26);
 	 
-	LPC_SC->PCONP |= (1 << 22) | (1 << 23);
+	LPC_SC->PCONP |= (1 << 22) | (1 << 23);		/* power on TIM2 and TIM3 */
 	
 	 
   while (1)	

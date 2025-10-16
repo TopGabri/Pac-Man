@@ -1,17 +1,3 @@
-/***************************************Copyright ©******************************************************************
- * 
- * Copyright © 2025 Gabriele Arcidiacono
- *
- * This work is licensed under the Creative Commons
- * Attribution–NonCommercial 4.0 International License.
- * 
- * You may not use this file for commercial purposes.
- * You must give appropriate credit and indicate if changes were made.
- * 
- * License details: https://creativecommons.org/licenses/by-nc/4.0/
- * 
-*********************************************************************************************************************/
-
 #include "ghost.h"
 #include "mapping.h"
 #include "GLCD/GLCD.h"
@@ -121,7 +107,7 @@ void ghost_movement(int row_target, int col_target){
 	if (row <= GHOST_START_ROW && row > (GHOST_START_ROW - 9) && col == GHOST_START_COL){
 		for(i=0;i<row-(GHOST_START_ROW-9);i++){
 			path[index++]=UP;
-			row=new_row(row,dir);
+			row=new_row(row,UP);
 		}
 	}
 	
@@ -253,7 +239,180 @@ void draw_ghost(int x, int y, Direction_TypeDef direction, uint16_t Color){
 		LCD_DrawLine(x1,y1,x1,y2,Color);
 	}
 	
+	draw_eyes(x,y,direction);
+	
 }
+
+
+void draw_eyes(int x, int y, Direction_TypeDef direction) {
+	
+	/* first eye */
+	
+	int x1, x2, y1, k, i;
+	
+	for (i=0;i<2;i++){
+		
+		if (i==0) k=1;
+		else k=-1;
+		
+		//line 7
+		x1 = x+k;
+		x2 = x+k*5;
+		y1 = y;
+		
+		LCD_DrawLine(x1,y1,x2,y1,White);
+		
+		//line 8
+		y1+=1;
+		LCD_DrawLine(x1,y1,x2,y1,White);
+		
+		//line 6
+		y1-=2;
+		LCD_DrawLine(x1,y1,x2,y1,White);
+		
+		//line 5
+		y1-=1;
+		LCD_DrawLine(x1,y1,x2,y1,White);
+		
+		//line 4
+		y1-=1;
+		x1+=k;
+		x2-=k;
+		LCD_DrawLine(x1,y1,x2,y1,White);
+		
+		//line 10
+		y1+=5;
+		LCD_DrawLine(x1,y1,x2,y1,White);
+		
+	}
+	
+	if (GHOST->mode == CHASE)
+		draw_pupils(x,y,direction);
+	
+}
+
+void draw_pupils(int x, int y, Direction_TypeDef direction){
+	
+	
+	int x1, x2, y1;
+	
+	switch (direction){
+		
+		case LEFT:
+		
+			//right eye
+			y1=y-1;
+			x1=x+1;
+			x2=x1+2;
+			LCD_DrawLine(x1,y1,x2,y1,Black);
+		
+			y1+=1;
+			LCD_DrawLine(x1,y1,x2,y1,Black);
+		
+			y1+=1;
+			LCD_DrawLine(x1,y1,x2,y1,Black);
+		
+			//left eye
+			x1=x-5;
+			x2=x1+2;
+			LCD_DrawLine(x1,y1,x2,y1,Black);
+		
+			y1-=1;
+			LCD_DrawLine(x1,y1,x2,y1,Black);
+		
+			y1-=1;
+			LCD_DrawLine(x1,y1,x2,y1,Black);
+			
+			break;
+		
+		case DOWN:
+			
+			//right eye
+			y1=y;
+			x1=x+2;
+			x2=x1+2;
+			LCD_DrawLine(x1,y1,x2,y1,Black);
+		
+			y1+=1;
+			LCD_DrawLine(x1,y1,x2,y1,Black);
+		
+			y1+=1;
+			LCD_DrawLine(x1,y1,x2,y1,Black);
+		
+			//left eye
+			x1=x-2;
+			x2=x1-2;
+			LCD_DrawLine(x1,y1,x2,y1,Black);
+		
+			y1-=1;
+			LCD_DrawLine(x1,y1,x2,y1,Black);
+		
+			y1-=1;
+			LCD_DrawLine(x1,y1,x2,y1,Black);
+			
+			break;
+			
+		
+		case UP:
+			
+		//right eye
+			y1=y-1;
+			x1=x+2;
+			x2=x1+2;
+			LCD_DrawLine(x1,y1,x2,y1,Black);
+		
+			y1-=1;
+			LCD_DrawLine(x1,y1,x2,y1,Black);
+		
+			y1-=1;
+			LCD_DrawLine(x1,y1,x2,y1,Black);
+		
+			//left eye
+			x1=x-2;
+			x2=x1-2;
+			LCD_DrawLine(x1,y1,x2,y1,Black);
+		
+			y1+=1;
+			LCD_DrawLine(x1,y1,x2,y1,Black);
+		
+			y1+=1;
+			LCD_DrawLine(x1,y1,x2,y1,Black);
+			
+			break;
+			
+		
+		default:
+			/*default is RIGHT */		
+		
+			//right eye
+			y1=y-1;
+			x1=x+3;
+			x2=x1+2;
+			LCD_DrawLine(x1,y1,x2,y1,Black);
+		
+			y1+=1;
+			LCD_DrawLine(x1,y1,x2,y1,Black);
+		
+			y1+=1;
+			LCD_DrawLine(x1,y1,x2,y1,Black);
+		
+			//left eye
+			x1=x-1;
+			x2=x1-2;
+			LCD_DrawLine(x1,y1,x2,y1,Black);
+		
+			y1-=1;
+			LCD_DrawLine(x1,y1,x2,y1,Black);
+		
+			y1-=1;
+			LCD_DrawLine(x1,y1,x2,y1,Black);
+			
+			break;
+	
+	}
+	
+}
+
 
 
 Bool hit_pacman(){

@@ -1,11 +1,7 @@
-/* **************************************Copyright ©*************************************************************
- * Based on original code provided in the Computer Architectures course
- * at Politecnico di Torino.
- * Modified and extended by Gabriele Arcidiacono
-
- **---------------------------------------File Info--------------------------------------------------------------
-** File name:           lib_timer.c
-** Last modified Date:  2025-02-19
+/*********************************************************************************************************
+**--------------File Info---------------------------------------------------------------------------------
+** File name:           lib_timer.h
+** Last modified Date:  2014-09-25
 ** Last Version:        V1.00
 ** Descriptions:        atomic functions to be used by higher sw levels
 ** Correlated files:    lib_timer.c, funct_timer.c, IRQ_timer.c

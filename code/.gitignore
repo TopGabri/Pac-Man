@@ -7,7 +7,7 @@ DebugConfig/
 ## exclude RTE
 RTE/
 ## exclude CAN due to copyright
-Source/CAN/
+# Source/CAN
 ## exclude CMSIS core due to copyright 
 Source/CMSIS_core/
 ## exclude CMSIS files due to copyright
@@ -19,6 +19,8 @@ system_LPC17xx.c
 
 ## project gui configuration
 *.uvprojx
+
+*.uvoptx
 
 
 ## event record during  debug

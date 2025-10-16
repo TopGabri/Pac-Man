@@ -1,24 +1,3 @@
-/***************************************Copyright ©******************************************************************
- * 
- * Copyright © 2025 Gabriele Arcidiacono
- *
- * This work is licensed under the Creative Commons
- * Attribution–NonCommercial 4.0 International License.
- * 
- * You may not use this file for commercial purposes.
- * You must give appropriate credit and indicate if changes were made.
- * 
- * License details: https://creativecommons.org/licenses/by-nc/4.0/
- *
-**--------------------------------------File Info--------------------------------------------------------------------
-** File name:           game.h
-** Last modified Date:  
-** Last Version:        V1.00
-** Descriptions:        Prototypes of functions, constants and variables included in game.c file
-** Correlated files:    game.c
-**-------------------------------------------------------------------------------------------------------------------
-********************************************************************************************************************/
-
 #ifndef __GAME_H
 #define __GAME_H
 
@@ -78,8 +57,8 @@ typedef char Bool;
 #define FALSE 0
 
 #define GAME_TIME 60
-#define POWER_PILLS 4
-#define RESPAWN_TIME 3
+#define POWER_PILLS 6
+#define RESPAWN_TIME 4
 #define NUM_PILLS 240
 
 
@@ -90,6 +69,7 @@ void initialize_PCMN();
 void display_score(uint16_t score);
 void display_lives(uint8_t lives);
 void display_cntdown_timer(uint8_t timer);
+void display_resume_timer(uint8_t time);
 int move(Direction_TypeDef direction);
 int hit_wall(Direction_TypeDef direction);
 Object_TypeDef hit_pill(Direction_TypeDef direction);

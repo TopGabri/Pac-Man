@@ -1,16 +1,3 @@
-/* **************************************Copyright ©*************************************************************
- * Based on original code provided in the Computer Architectures course
- * at Politecnico di Torino.
- **--------------------------------------File Info--------------------------------------------------------------------
-** File name:           music.h
-** Last modified Date:  
-** Last Version:        V1.00
-** Descriptions:        Prototypes of functions included in music.c 
-** Correlated files:    music.c
-**-------------------------------------------------------------------------------------------------------------------
-********************************************************************************************************************/
-
-
 #ifndef MUSIC_H
 #define MUSIC_H
 
@@ -52,9 +39,13 @@ typedef enum frequencies
 	e4 = 1684,	// 330Hz	k=1684 e4
 	f4 = 1592,	// 349Hz	k=1592 f4
 	g4 = 1417,	// 392Hz	k=1417 g4
+	a4b = 1339, // 415Hz  k=1339 a4b
 	a4 = 1263,	// 440Hz	k=1263 a4
+	b4b = 1192, // 466Hz  k=1192 b4b
 	b4 = 1125,	// 494Hz	k=1125 b4
 	c5 = 1062, 	// 523Hz	k=1062 c5
+	d5 = 946,   // 587Hz  k=946  d5
+	e5b = 893,  // 622Hz  k=893  e5b
 	pause = 0		// DO NOT SOUND
 } FREQUENCY;
 
