@@ -41,11 +41,6 @@ For this assignment, we were given **a set of helper functions** to interface wi
 
 These were built upon **ARM’s CMSIS library** for the LPC1768 microcontroller.
 
-Due to **copyright restrictions**, the CMSIS files and related proprietary material are **excluded** from this repository.  
-You can find the official CMSIS package here:  
-👉 [ARM CMSIS for LPC1768 (Keil)](https://www.keil.arm.com/devices/nxp-lpc1768/features/)
----
-
 ## ⚖️ License & Copyright ©
 
 This project is licensed under the **Creative Commons Attribution–NonCommercial 4.0 International (CC BY-NC 4.0)** license.

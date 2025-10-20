@@ -8,11 +8,6 @@ DebugConfig/
 RTE/
 ## exclude CAN due to copyright
 Source/CAN
-## exclude CMSIS core due to copyright 
-Source/CMSIS_core/
-## exclude CMSIS files due to copyright
-startup_LPC17xx.s
-system_LPC17xx.c
 
 ## a user define gui configuration 
 *.uvguix.*
