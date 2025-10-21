@@ -17,8 +17,6 @@ system_LPC17xx.c
 ## a user define gui configuration 
 *.uvguix.*
 
-## project gui configuration
-*.uvprojx
 
 *.uvoptx
 
