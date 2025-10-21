@@ -47,7 +47,7 @@ This project is licensed under the **Creative Commons Attribution–NonCommercia
 
 This means you are free to:
 - Share and adapt the code for **non-commercial** purposes
-- Credit must be given to the original author: **Gabriele Arcidiacono**
+- Credit must be given to the original author
 
 Commercial use of any part of this project is **not allowed**.
 
@@ -70,6 +70,7 @@ For inquiries or collaboration proposals, feel free to reach out via:
 
 ![C](https://img.shields.io/badge/language-C-blue)
 ![Platform](https://img.shields.io/badge/platform-LandTiger%20LPC1768-lightgrey)
-![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)
+[![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
+
 
 
