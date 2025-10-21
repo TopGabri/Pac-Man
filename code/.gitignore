@@ -12,8 +12,6 @@ Source/CAN
 ## a user define gui configuration 
 *.uvguix.*
 
-## project gui configuration
-*.uvprojx
 
 *.uvoptx
 
