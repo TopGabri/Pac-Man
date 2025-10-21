@@ -1,12 +1,17 @@
-/*********************************************************************************************************
-**--------------File Info---------------------------------------------------------------------------------
+/* **************************************Copyright ©*************************************************************
+ * Based on original code provided in the Computer Architectures course
+ * at Politecnico di Torino.
+ * Modified and extended by Gabriele Arcidiacono
+ **--------------------------------------File Info--------------------------------------------------------------------
 ** File name:           timer.h
-** Last modified Date:  2014-09-25
+** Last modified Date:  
+** Last modified Date:  02/29/2025
 ** Last Version:        V1.00
-** Descriptions:        Prototypes of functions included in the lib_timer, funct_timer, IRQ_timer .c files
-** Correlated files:    lib_timer.c, funct_timer.c, IRQ_timer.c
-**--------------------------------------------------------------------------------------------------------
-*********************************************************************************************************/
+** Descriptions:        Prototypes of functions included in lib_timer.c and IRQ_timer.c files, which manage the timer peripheral
+** Correlated files:    lib_timer.c, IRQ_timer.c
+**-------------------------------------------------------------------------------------------------------------------
+********************************************************************************************************************/
+
 #ifndef __TIMER_H
 #define __TIMER_H
 

@@ -1,3 +1,16 @@
+/* **************************************Copyright ©*************************************************************
+ * Based on original code provided in the Computer Architectures course
+ * at Politecnico di Torino.
+ * Modified and extended by Gabriele Arcidiacono
+ **--------------------------------------File Info--------------------------------------------------------------------
+** File name:           lib_button.c
+** Last modified Date:  
+** Last Version:        V1.00
+** Descriptions:        Atomic button init functions
+** Correlated files:    button.h
+**-------------------------------------------------------------------------------------------------------------------
+********************************************************************************************************************/
+
 
 #include "button.h"
 #include "LPC17xx.h"

@@ -1,3 +1,24 @@
+/***************************************Copyright ©******************************************************************
+ * 
+ * Copyright © 2025 Gabriele Arcidiacono
+ *
+ * This work is licensed under the Creative Commons
+ * Attribution–NonCommercial 4.0 International License.
+ * 
+ * You may not use this file for commercial purposes.
+ * You must give appropriate credit and indicate if changes were made.
+ * 
+ * License details: https://creativecommons.org/licenses/by-nc/4.0/
+ *
+**--------------------------------------File Info--------------------------------------------------------------------
+** File name:           labyrinth.c
+** Last modified Date:  02/19/2025
+** Last Version:        V1.00
+** Descriptions:        Implementation of function to display labyrinth on GLCD and map it to matrix
+** Correlated files:    labyrinth.h, mapping.h, game.h, pills.h
+**-------------------------------------------------------------------------------------------------------------------
+********************************************************************************************************************/
+
 #include "GLCD/GLCD.h" 
 #include "labyrinth.h"
 #include "mapping.h"

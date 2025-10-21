@@ -1,12 +1,17 @@
-/*********************************************************************************************************
-**--------------File Info---------------------------------------------------------------------------------
+/* **************************************Copyright ©*************************************************************
+ * Based on original code provided in the Computer Architectures course
+ * at Politecnico di Torino.
+ * Modified and extended by Gabriele Arcidiacono
+**---------------------------------------File Info---------------------------------------------------------------
 ** File name:           IRQ_timer.c
-** Last modified Date:  2014-09-25
+** Last modified Date:  02/19/2025
 ** Last Version:        V1.00
-** Descriptions:        functions to manage T0 and T1 interrupts
-** Correlated files:    timer.h
+** Descriptions:        functions to manage T0, T1 and T2 interrupts. 
+**						Responsible for game time countdown, ghost behavior, frightened mode timing, path computation, music playing
+** Correlated files:    RIT.h 
 **--------------------------------------------------------------------------------------------------------
 *********************************************************************************************************/
+
 #include <string.h>
 #include "LPC17xx.h"
 #include "timer.h"
@@ -325,6 +330,9 @@ void TIMER1_IRQHandler (void)
 ** Function name:		Timer2_IRQHandler
 **
 ** Descriptions:		Timer/Counter 2 interrupt handler
+**						Send current sine wave value to DAC. Sending multiple values
+**						at a specific frequency results in a specific note being played
+**						from the buzzer.
 **
 ** parameters:			None
 ** Returned value:		None
@@ -356,6 +364,7 @@ void TIMER2_IRQHandler (void)
 ** Function name:		Timer3_IRQHandler
 **
 ** Descriptions:		Timer/Counter 3 interrupt handler
+						Stop note playing
 **
 ** parameters:			None
 ** Returned value:		None

@@ -1,3 +1,15 @@
+/* **************************************Copyright ©*************************************************************
+ * Based on original code provided in the Computer Architectures course
+ * at Politecnico di Torino.
+ **--------------------------------------File Info--------------------------------------------------------------------
+** File name:           music.h
+** Last modified Date:  
+** Last Version:        V1.00
+** Descriptions:        Prototypes of functions included in music.c 
+** Correlated files:    music.c
+**-------------------------------------------------------------------------------------------------------------------
+********************************************************************************************************************/
+
 #ifndef MUSIC_H
 #define MUSIC_H
 
