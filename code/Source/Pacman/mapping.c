@@ -1,3 +1,24 @@
+/***************************************Copyright ©******************************************************************
+ * 
+ * Copyright © 2025 Gabriele Arcidiacono
+ *
+ * This work is licensed under the Creative Commons
+ * Attribution–NonCommercial 4.0 International License.
+ * 
+ * You may not use this file for commercial purposes.
+ * You must give appropriate credit and indicate if changes were made.
+ * 
+ * License details: https://creativecommons.org/licenses/by-nc/4.0/
+ *
+**--------------------------------------File Info--------------------------------------------------------------------
+** File name:           mapping.c
+** Last modified Date:  02/19/2025
+** Last Version:        V1.00
+** Descriptions:        Implementation of functions to map GLCD coordinates to matrix and vice versa
+** Correlated files:    mapping.h, labyrinth.h
+**-------------------------------------------------------------------------------------------------------------------
+********************************************************************************************************************/
+
 #include "mapping.h"
 #include "labyrinth.h"
 

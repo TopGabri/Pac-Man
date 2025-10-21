@@ -1,3 +1,17 @@
+/* **************************************Copyright ©*************************************************************
+ * Based on original code provided in the Computer Architectures course
+ * at Politecnico di Torino.
+ * Modified and extended by Gabriele Arcidiacono
+ **--------------------------------------File Info--------------------------------------------------------------------
+** File name:           IRQ_button.c
+** Last modified Date:  
+** Last Version:        V1.00
+** Descriptions:        Implementation of interrupt handlers for button presses
+** Correlated files:    button.h, RIT/RIT.h, Pacman/game.h, GLCD/GLCD.h
+**-------------------------------------------------------------------------------------------------------------------
+********************************************************************************************************************/
+
+
 #include "button.h"
 #include "LPC17xx.h"
 #include "GLCD/GLCD.h" 

@@ -1,12 +1,17 @@
-/*********************************************************************************************************
-**--------------File Info---------------------------------------------------------------------------------
+/* **************************************Copyright ©*************************************************************
+ * Based on original code provided in the Computer Architectures course
+ * at Politecnico di Torino.
+ * Modified and extended by Gabriele Arcidiacono
+ **--------------------------------------File Info--------------------------------------------------------------------
 ** File name:           RIT.h
-** Last modified Date:  2014-09-25
+** Last modified Date:  
+** Last modified Date:  02/29/2025
 ** Last Version:        V1.00
-** Descriptions:        Prototypes of functions included in the lib_RIT, funct_RIT, IRQ_RIT .c files
-** Correlated files:    lib_RIT.c, funct_RIT.c, IRQ_RIT.c
-**--------------------------------------------------------------------------------------------------------
-*********************************************************************************************************/
+** Descriptions:        Prototypes of functions included in lib_RIT.c and IRQ_RIT.c files, which manage the RIT (Repetitive Interrupt Timer) peripheral
+** Correlated files:    lib_RIT.c, IRQ_RIT.c
+**-------------------------------------------------------------------------------------------------------------------
+********************************************************************************************************************/
+
 #ifndef __RIT_H
 #define __RIT_H
 

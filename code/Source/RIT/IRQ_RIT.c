@@ -1,12 +1,17 @@
-/*********************************************************************************************************
-**--------------File Info---------------------------------------------------------------------------------
+/* **************************************Copyright ©*************************************************************
+ * Based on original code provided in the Computer Architectures course
+ * at Politecnico di Torino.
+ * Modified and extended by Gabriele Arcidiacono
+**---------------------------------------File Info---------------------------------------------------------------
 ** File name:           IRQ_RIT.c
-** Last modified Date:  2014-09-25
+** Last modified Date:  02/19/2025
 ** Last Version:        V1.00
-** Descriptions:        functions to manage T0 and T1 interrupts
-** Correlated files:    RIT.h
+** Descriptions:        functions to manage RIT interrupts. 
+**						Responsible for joystick driven movement of Pac-man, game start, pause and end, countdown, pills
+** Correlated files:    RIT.h, GLCD/, led/, Pacman/, timer/, music/
 **--------------------------------------------------------------------------------------------------------
 *********************************************************************************************************/
+
 #include "LPC17xx.h"
 #include "RIT.h"
 #include "../led/led.h"

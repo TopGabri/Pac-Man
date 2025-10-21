@@ -1,3 +1,15 @@
+/* **************************************Copyright ©*************************************************************
+ * Based on original code provided in the Computer Architectures course
+ * at Politecnico di Torino.
+ **--------------------------------------File Info--------------------------------------------------------------------
+** File name:           music.c
+** Last modified Date:  
+** Last Version:        V1.00
+** Descriptions:        Implementation of functions to play notes using timer peripherals 
+** Correlated files:    music.h, timer/timer.h
+**-------------------------------------------------------------------------------------------------------------------
+********************************************************************************************************************/
+
 #include "music.h"
 #include "timer/timer.h"
 #include "LPC17xx.h"

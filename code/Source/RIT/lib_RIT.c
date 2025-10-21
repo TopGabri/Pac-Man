@@ -1,12 +1,16 @@
-/*********************************************************************************************************
-**--------------File Info---------------------------------------------------------------------------------
-** File name:           lib_RIT.h
-** Last modified Date:  2014-09-25
+/* **************************************Copyright ©*************************************************************
+ * Based on original code provided in the Computer Architectures course
+ * at Politecnico di Torino.
+ * Modified and extended by Gabriele Arcidiacono
+**---------------------------------------File Info---------------------------------------------------------------
+** File name:           lib_RIT.c
+** Last modified Date:  02/19/2025
 ** Last Version:        V1.00
-** Descriptions:        atomic functions to be used by higher sw levels
-** Correlated files:    lib_RIT.c, funct_RIT.c, IRQ_RIT.c
+** Descriptions:        functions to initialize, enable, disable and reset the RIT peripheral
+** Correlated files:    RIT.h 
 **--------------------------------------------------------------------------------------------------------
 *********************************************************************************************************/
+
 #include "LPC17xx.h"
 #include "RIT.h"
 
