@@ -35,9 +35,9 @@ Curious to see the result?
 ## 🧩 Provided Material & Dependencies
 
 For this assignment, we were given **a set of helper functions** to interface with the board peripherals — for example, functions to:
-- Turn LEDs on/off  
 - Read button and joystick inputs  
-- Draw on the LCD display  
+- Draw on the LCD display 
+- Handle timers 
 
 These were built upon **ARM’s CMSIS library** for the LPC1768 microcontroller.
 
