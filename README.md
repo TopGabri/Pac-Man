@@ -53,10 +53,11 @@ To implement the game, I had to exploit several peripherals of the LPC1768 SoC a
 For those who are interested, I will now go through all the development steps, referencing the associated source code (all the code is inside <a href="./code/Source/">code/Source/</a>):
 
 - design of the **game board** and all of its elements:
-  In <a href="./code/Source/Pacman/labirynth.c">labyrinth.c</a> the maze is created, using the functions to draw lines specified in <a href="./code/Source/GLCD/">GLCD</a> folder to fit exactly **240** standard pellets, and I mapped each square of 3x3 pixels of the display to a cell in a **two-dimensional array** called `labyrinth_mat`. Each cell of the matrix is assigned a value (`WALL`, `SPACE`, `STD_PILL`) depending on what object is found at the corresponding location in the maze. 
+  - in <a href="./code/Source/Pacman/labirynth.c">labyrinth.c</a> the maze is created, using the functions to draw lines in the LCD display defined in the <a href="./code/Source/GLCD/">GLCD</a> folder. The maze has a regular structure and is made to fit exactly **240** standard pellets
+  - With the functions defined in <a href="./code/Source/Pacman/mapping.c">mapping.c</a>, each square of 3x3 pixels of the display is mapped to a cell of `labyrinth_mat`, a **two-dimensional array** that stores the state of the game board at all times. Each cell of the matrix is assigned a value (e.g `WALL`, `SPACE`, `STD_PILL`,...) depending on what object is found at the corresponding location in the maze. 
 
-Implementing and managing Pac-Man:
-implementing Pac-Man as a C struct with assigned properties (position, direction, etc.), placing it in the game board array
+- Implementation and handling of **Pac-Man**:
+    - the main character (i.e Pac-Man) is implemented as a C struct with assigned attributes (position, direction, etc.), called `CHR_TypeDef` and defined in <a href="./code/Source/Pacman/game.h">game.h</a>. 
 making it move only within the walls and not go through them
 ensuring the movement was fluid and responsive, without sudden steps or glitches
 managing every possible event without causing significant slowdowns or crashes
