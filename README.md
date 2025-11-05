@@ -27,8 +27,7 @@ We had to program the game on the **LPC1768 SoC** (by **NXP**) using the **C** l
 
 ## 📹 Demo
 
-Curious to see the result?  
-👉 Check out the gameplay here: [YouTube Link](https://www.youtube.com/shorts/BiLacOqi1gU)
+For more details on the implementation and a video of the gameplay, check out my dedicated Portfolio Website page 👉 [here](https://topgabri.github.io/my-portfolio-website/projects/pacman.html) 
 
 ---
 
