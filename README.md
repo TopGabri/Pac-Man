@@ -57,19 +57,23 @@ For those who are interested, I will now go through all the development steps, r
   - With the functions defined in <a href="./code/Source/Pacman/mapping.c">mapping.c</a>, each square of 3x3 pixels of the display is mapped to a cell of `labyrinth_mat`, a **two-dimensional array** that stores the state of the game board at all times. Each cell of the matrix is assigned a value (e.g `WALL`, `SPACE`, `STD_PILL`,...) depending on what object is found at the corresponding location in the maze. 
 
 - Implementation and handling of **Pac-Man**:
-    - the main character (i.e Pac-Man) is implemented as a C struct with assigned attributes (position, direction, etc.), called `CHR_TypeDef` and defined in <a href="./code/Source/Pacman/game.h">game.h</a>. 
-making it move only within the walls and not go through them
-ensuring the movement was fluid and responsive, without sudden steps or glitches
-managing every possible event without causing significant slowdowns or crashes
-
-implementing and managing the ghost:
-creating shortest path algorithm that was not too memory and time consuming (definitely not A*) for the ghost's movement, making it chase Pac-Man
-increasing its speed over time or at certain points in the game
-handling the behavior when power pellets are eaten, making the ghost vulnerable and allowing Pac-Man to eat it
-
-
-
-
+    - the main character (i.e Pac-Man) is implemented as an instance of a C struct with assigned attributes (position, direction, etc.), called `CHR_TypeDef` and defined in <a href="./code/Source/Pacman/game.h">game.h</a>. 
+    - its coordinates (`row`,`col`) represent its position in the `labyrinth_mat` matrix at the present time. Wherever it's at, its matrix coordinates are mapped to the corresponding pixel coordinates on the LCD display, which are used to draw it using the functions in <a href="./code/Source/Pacman/pacman.c">pacman.c</a>. At the same time, the old position is cleared to create the perception of movement.
+    - the starting point of its movement control is the **joystick** on the board. Each direction of the joystick is connected to a **GPIO** input pin of the microcontroller, which is raised to high whenever the joystick is moved in the corresponding direction. The GPIO pins of the joystick are periodically polled in the interrupt handler of the **RIT** (Repetitive Interrupt Timer), defined in <a href="./code/Source/RIT/IRQ_RIT.c">IRQ_RIT.c</a>, where a good portion of the game timing logic is implemented. 
+    - Whenever a joystick movement in a certain direction is detected in the RIT interrupt handler, Pac-Man's coordinates are updated accordingly, and functions from <a href="./code/Source/Pacman/game.c">game.c</a> are called to handle the movement request
+    - The functions in <a href="./code/Source/Pacman/game.c">game.c</a> take care of:
+      - checking that the requested movement is valid, i.e that there is no wall in the direction of movement
+      - check that a pellet is present in the new position, updating the score and removing the pellet from the maze if so
+      - redrawing Pac-Man at the new position
+      - updating the game state accordingly
+- implementation and handling of the **ghost**:
+    - the ghost is also implemented as an instance of the `CHR_TypeDef` struct, with its own attributes and position in the maze
+    - its movement timing is handled by the **Timer 1** interrupt handler, defined in <a href="./code/Source/timer/IRQ_timer.c">IRQ_timer.c</a>, which is set to trigger at regular intervals to update the ghost's position
+    - its movement logic is implemented in <a href="./code/Source/Pacman/ghost.c">ghost.c</a>, where functions are defined to compute the ghost's **path** towards Pac-Man, update its position, **draw** it on the display and handle **collisions**
+    - the path of the ghost is computed using a custom **shortest path algorithm** that considers the maze structure and avoids walls, and it is periodically updated to adapt to Pac-Man's changing position
+    - **collision** **detection** between Pac-Man and the ghost generates the assertion of a variable called `hit`, which is then handled in the RIT interrupt handler to manage lives and game over conditions
+    - the ghost has two modes: **chase** mode and **frightened** mode. In chase mode, it actively pursues Pac-Man, while in frightened mode (triggered when Pac-Man eats a power pellet), it moves in a random manner for a limited time before returning to chase mode
+    - the **speed** of the ghost is increased over time (with 3 levels of difficulty), by reducing the number of Timer 1 interrupts that must pass before updating its position, making the game progressively more challenging
 
 ## ⚖️ License & Copyright ©
 
