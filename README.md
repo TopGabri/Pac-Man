@@ -19,7 +19,7 @@ To see the gameplay on the board, check out my dedicated Portfolio Website page 
 
 ---
 
-## ⚙️ Hardware & Implementation Details
+## ⚙️ Hardware & Features Implemented
 
 The goal was to design and implement a fully functional version of the Pac-Man game on the **LandTiger** Arm development board, featuring the **NXP LPC1768 SoC** with a **Cortex-M3** core.
 The code was entirely developed in **C** (exploiting the **CMSIS**), and the physical board was programmed and debugged with Arm's **ULINK2/ME** adapter via JTAG interface, using Arm's **Keil uVision** IDE.
@@ -41,7 +41,7 @@ For this assignment, we were given **a set of helper functions** to interface wi
 
 These were built upon **ARM’s CMSIS library** for the LPC1768 microcontroller.
 
-### Implementation Details
+## 🛠️ Implementation Details
 
 To implement the game, I had to exploit several peripherals of the LPC1768 SoC and components of the board, including:
 - The 320x240 **TFT LCD display** to render the game graphics, including the maze, Pac-Man, ghosts, pellets, and score.
