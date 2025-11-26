@@ -57,8 +57,8 @@ To implement the game, I had to exploit several peripherals of the LPC1768 SoC a
 For those who are interested, I will now go through all the development steps, referencing the associated source code (all the code is inside <a href="./code/Source/">`code/Source/`</a>):
 
 - design of the **game board** and all of its elements:
-  - in <a href="./code/Source/Pacman/labirynth.c">`labyrinth.c`</a> the maze is created, using the functions to draw lines on the LCD display defined in the <a href="./code/Source/GLCD/">`GLCD`</a> folder. The maze has a regular structure and is made to fit exactly **240** standard pellets
-  - With the functions defined in <a href="./code/Source/Pacman/mapping.c">`mapping.c`</a>, each square of 3x3 pixels of the display is mapped to a cell of `labyrinth_mat`, a **two-dimensional array** that stores the state of the game board at all times. Each cell of the matrix is assigned a value (e.g `WALL`, `SPACE`, `STD_PILL`,...) depending on what object is found at the corresponding location in the maze. 
+  - in <a href="./code/Source/Pacman/labirynth.c">`labyrinth.c`</a> the maze is created, using the functions to draw lines on the LCD display defined in the <a href="./code/Source/GLCD/">`GLCD`</a> folder. The maze has a regular structure and is made to fit exactly **240** standard pellets. The functions to generate the pellets are defined in <a href="./code/Source/Pacman/pills.c">`pills.c`</a>.
+  - With the functions defined in <a href="./code/Source/Pacman/mapping.c">`mapping.c`</a>, each square of $3x3$ pixels of the display is mapped to a cell of `labyrinth_mat`, a **two-dimensional array** that stores the state of the game board at all times. Each cell of the matrix is assigned a value (e.g `WALL`, `SPACE`, `STD_PILL`,`PWR_PILL`,...) depending on what object is found at the corresponding location in the maze. 
 
 - implementation and handling of **Pac-Man**:
     - the main character (i.e Pac-Man) is implemented as an instance of a C struct with assigned attributes (position, direction, etc.), called `CHR_TypeDef` and defined in <a href="./code/Source/Pacman/game.h">`game.h`</a>. 
