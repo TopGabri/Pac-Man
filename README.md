@@ -54,26 +54,26 @@ To implement the game, I had to exploit several peripherals of the LPC1768 SoC a
 - The **DAC** (Digital-To-Analog Converter) and the **buzzer** to play sound effects
 
 
-For those who are interested, I will now go through all the development steps, referencing the associated source code (all the code is inside <a href="./code/Source/">code/Source/</a>):
+For those who are interested, I will now go through all the development steps, referencing the associated source code (all the code is inside <a href="./code/Source/">`code/Source/`</a>):
 
 - design of the **game board** and all of its elements:
-  - in <a href="./code/Source/Pacman/labirynth.c">labyrinth.c</a> the maze is created, using the functions to draw lines on the LCD display defined in the <a href="./code/Source/GLCD/">GLCD</a> folder. The maze has a regular structure and is made to fit exactly **240** standard pellets
-  - With the functions defined in <a href="./code/Source/Pacman/mapping.c">mapping.c</a>, each square of 3x3 pixels of the display is mapped to a cell of `labyrinth_mat`, a **two-dimensional array** that stores the state of the game board at all times. Each cell of the matrix is assigned a value (e.g `WALL`, `SPACE`, `STD_PILL`,...) depending on what object is found at the corresponding location in the maze. 
+  - in <a href="./code/Source/Pacman/labirynth.c">`labyrinth.c`</a> the maze is created, using the functions to draw lines on the LCD display defined in the <a href="./code/Source/GLCD/">`GLCD`</a> folder. The maze has a regular structure and is made to fit exactly **240** standard pellets
+  - With the functions defined in <a href="./code/Source/Pacman/mapping.c">`mapping.c`</a>, each square of 3x3 pixels of the display is mapped to a cell of `labyrinth_mat`, a **two-dimensional array** that stores the state of the game board at all times. Each cell of the matrix is assigned a value (e.g `WALL`, `SPACE`, `STD_PILL`,...) depending on what object is found at the corresponding location in the maze. 
 
 - implementation and handling of **Pac-Man**:
-    - the main character (i.e Pac-Man) is implemented as an instance of a C struct with assigned attributes (position, direction, etc.), called `CHR_TypeDef` and defined in <a href="./code/Source/Pacman/game.h">game.h</a>. 
-    - its coordinates (`row`,`col`) represent its position in the `labyrinth_mat` matrix at a given time. Wherever it's at, its matrix coordinates are mapped to the corresponding pixel coordinates on the LCD display, which are used to draw it using the functions in <a href="./code/Source/Pacman/pacman.c">pacman.c</a>. By drawing it at the new position and erasing it at the old position, the perception of movement is created
-    - the starting point of its movement control is the **joystick** on the board. Each direction of the joystick is connected to a **GPIO** input pin of the LPC1768 microcontroller, which is raised to high whenever the joystick is moved in the corresponding direction. The GPIO pins of the joystick are periodically polled in the interrupt handler of the **RIT** (Repetitive Interrupt Timer), defined in <a href="./code/Source/RIT/IRQ_RIT.c">IRQ_RIT.c</a>, where a good portion of the game timing logic is implemented. 
-    - whenever a joystick movement in a certain direction is detected in the RIT interrupt handler, Pac-Man's coordinates are updated accordingly, and functions from <a href="./code/Source/Pacman/game.c">game.c</a> are called to handle the movement request
-    - The functions in <a href="./code/Source/Pacman/game.c">game.c</a> take care of:
+    - the main character (i.e Pac-Man) is implemented as an instance of a C struct with assigned attributes (position, direction, etc.), called `CHR_TypeDef` and defined in <a href="./code/Source/Pacman/game.h">`game.h`</a>. 
+    - its coordinates (`row`,`col`) represent its position in the `labyrinth_mat` matrix at a given time. Wherever it's at, its matrix coordinates are mapped to the corresponding pixel coordinates on the LCD display, which are used to draw it using the functions in <a href="./code/Source/Pacman/pacman.c">`pacman.c`</a>. By drawing it at the new position and erasing it at the old position, the perception of movement is created
+    - the starting point of its movement control is the **joystick** on the board. Each direction of the joystick is connected to a **GPIO** input pin of the LPC1768 microcontroller, which is raised to high whenever the joystick is moved in the corresponding direction. The GPIO pins of the joystick are periodically polled in the interrupt handler of the **RIT** (Repetitive Interrupt Timer), defined in <a href="./code/Source/RIT/IRQ_RIT.c">`IRQ_RIT.c`</a>, where a good portion of the game timing logic is implemented. 
+    - whenever a joystick movement in a certain direction is detected in the RIT interrupt handler, Pac-Man's coordinates are updated accordingly, and functions from <a href="./code/Source/Pacman/game.c">`game.c`</a> are called to handle the movement request
+    - The functions in <a href="./code/Source/Pacman/game.c">`game.c`</a> take care of:
       - checking that the requested movement is valid, i.e that there is no wall in the direction of movement
       - check that a pellet is present in the new position, updating the score and removing the pellet from the maze if so
       - redrawing Pac-Man at the new position
       - updating the game state accordingly
 - implementation and handling of the **ghost**:
     - the ghost is also implemented as an instance of the `CHR_TypeDef` struct, with its own attributes and position in the maze
-    - its movement timing is handled by the **Timer 1** interrupt handler, defined in <a href="./code/Source/timer/IRQ_timer.c">IRQ_timer.c</a>, which is set to trigger at regular intervals to update the ghost's position
-    - its movement logic is implemented in <a href="./code/Source/Pacman/ghost.c">ghost.c</a>, where functions are defined to compute the ghost's **path** towards Pac-Man, update its position, **draw** it on the display and handle **collisions**
+    - its movement timing is handled by the **Timer 1** interrupt handler, defined in <a href="./code/Source/timer/IRQ_timer.c">`IRQ_timer.c`</a>, which is set to trigger at regular intervals to update the ghost's position
+    - its movement logic is implemented in <a href="./code/Source/Pacman/ghost.c">`ghost.c`</a>, where functions are defined to compute the ghost's **path** towards Pac-Man, update its position, **draw** it on the display and handle **collisions**
     - the path of the ghost is computed using a custom **shortest path algorithm** that considers the maze structure and avoids walls, and it is periodically updated to adapt to Pac-Man's changing position
     - **collision** **detection** between Pac-Man and the ghost generates the assertion of a variable called `hit`, which is then handled in the RIT interrupt handler to manage lives and game over conditions
     - the ghost has two modes: **chase** mode and **frightened** mode. In chase mode, it actively pursues Pac-Man, while in frightened mode (triggered when Pac-Man eats a power pellet), it moves in a random manner for a limited time before returning to chase mode
