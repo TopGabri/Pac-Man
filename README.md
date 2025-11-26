@@ -24,6 +24,8 @@ To see the gameplay on the board, check out my dedicated Portfolio Website page 
 The goal was to design and implement a fully functional version of the Pac-Man game on the **LandTiger** Arm development board, featuring the **NXP LPC1768 SoC** with a **Cortex-M3** core.
 The code was entirely developed in **C** (exploiting the **CMSIS**), and the physical board was programmed and debugged with Arm's **ULINK2/ME** adapter via JTAG interface, using Arm's **Keil uVision** IDE.
 
+---
+
 ### Features Implemented
 - 🎮 Joystick to control Pac-Man's moves  
 - 🖥️ LCD display rendering (custom graphics routines) 
@@ -40,6 +42,8 @@ For this assignment, we were given **a set of helper functions** to interface wi
 - Handle timers 
 
 These were built upon **ARM’s CMSIS library** for the LPC1768 microcontroller.
+
+---
 
 ## 🛠️ Implementation Details
 
@@ -74,6 +78,21 @@ For those who are interested, I will now go through all the development steps, r
     - **collision** **detection** between Pac-Man and the ghost generates the assertion of a variable called `hit`, which is then handled in the RIT interrupt handler to manage lives and game over conditions
     - the ghost has two modes: **chase** mode and **frightened** mode. In chase mode, it actively pursues Pac-Man, while in frightened mode (triggered when Pac-Man eats a power pellet), it moves in a random manner for a limited time before returning to chase mode
     - the **speed** of the ghost is increased over time (with 3 levels of difficulty), by reducing the number of Timer 1 interrupts that must pass before updating its position, making the game progressively more challenging
+
+---
+
+## 📈 Skill and Experience Gained
+
+This project allowed me to strengthen a broad set of technical skills:
+
+- Embedded Programming and Firmware Development
+- Game Design and problem solving applied to Low Level Programming
+- System Design thinking
+- Microcontroller Peripherals and Low Level Hardware
+- Debugging and MCU Development Workflow
+- C programming
+
+---
 
 ## ⚖️ License & Copyright ©
 
