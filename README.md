@@ -81,7 +81,7 @@ For those who are interested, I will now go through all the development steps, r
 
 ---
 
-## 📈 Skill and Experience Gained
+## 📈 Skills and Experience Gained
 
 This project allowed me to strengthen a broad set of technical skills:
 
