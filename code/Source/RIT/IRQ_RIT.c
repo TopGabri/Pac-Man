@@ -65,8 +65,6 @@ extern Bool gameoverSong;
 extern uint8_t num_lives;
 extern uint8_t respawn_time;
 
-extern uint32_t msg;
-
 uint8_t n_interrupt_pcmn = 0;
 uint8_t n_interrupt_pill = 0;
 
@@ -280,21 +278,19 @@ void RIT_IRQHandler (void)
 					GUI_Text(11*9+2,38+3+16*9+1,(uint8_t *) "     ",Red,Black);
 				}
 				
-				/* if any of the 3 parameters is modified, send them over CAN and display only the modified one */
+				/* if any of the 3 parameters is modified, display them */
 				if (modified_lives || modified_score || modified_time)
 				{	
-					/* send SCORE, REMAINING LIVES and COUNTDOWN TIMER with CAN */
-					send_parameters_CAN(score, num_lives, game_time); 
 					if (modified_time){
-						display_cntdown_timer((msg & 0xFF000000) >> 24);
+						display_cntdown_timer(game_time);
 						modified_time=FALSE;
 					}
 					if (modified_lives){
-						display_lives((msg & 0x00FF0000) >> 16);
+						display_lives(num_lives);
 						modified_lives=FALSE;
 					}
 					if (modified_score){
-						display_score(msg & 0x0000FFFF);
+						display_score(score);
 						modified_score=FALSE;
 					}
 				}

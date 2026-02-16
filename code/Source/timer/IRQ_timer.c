@@ -17,7 +17,6 @@
 #include "timer.h"
 #include "RIT/RIT.h"
 #include "../GLCD/GLCD.h" 
-#include "../TouchPanel/TouchPanel.h"
 #include <stdio.h> /*for sprintf*/
 #include "Pacman/game.h"
 #include "Pacman/mapping.h"
@@ -90,7 +89,7 @@ void TIMER0_IRQHandler (void)
 	if (!hit){
 		game_time--;
 		modified_time=TRUE;
-		//display_cntdown_timer(game_time);
+		display_cntdown_timer(game_time);
 		
 		/* game OVER */
 		if(game_time==0){
@@ -262,7 +261,7 @@ void TIMER1_IRQHandler (void)
 					score+=100;
 					//modified_parameters = TRUE;
 					modified_score=TRUE;
-					//display_score(score);
+					display_score(score);
 					difficulty.frightened=3;
 					fallback = TRUE;
 					computePath = TRUE;					

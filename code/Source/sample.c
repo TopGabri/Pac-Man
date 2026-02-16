@@ -23,9 +23,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "LPC17xx.h"
 #include "GLCD/GLCD.h" 
-#include "TouchPanel/TouchPanel.h"
 #include "timer/timer.h"
-#include "CAN/CAN.h"
 #include "Pacman/pacman.h"
 #include "Pacman/mapping.h"
 #include <stdio.h>
@@ -42,7 +40,6 @@ int main(void)
   LCD_Initialization();
 	joystick_init();
 	BUTTON_init();
-	CAN_Init();
 	 
 		 
 	pacman();

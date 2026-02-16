@@ -27,7 +27,6 @@
 #include "pills.h"
 #include "ghost.h"
 #include "GLCD/GLCD.h" 
-#include "CAN/CAN.h"
 #include "music/music.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -73,7 +72,6 @@ extern uint8_t n_interrupt_pcmn;
 extern uint8_t n_interrupt_pill;
 extern Direction_TypeDef path[MAX_PATH_LENGTH];
 extern int currPathIndex;
-extern CAN_msg CAN_TxMsg;
 
 
 void pacman(){
@@ -144,10 +142,10 @@ void pacman(){
 	generate_labyrinth();
 	
 	/* display countdown timer (initialized to 60 s) */
-	//display_cntdown_timer(game_time);
+	display_cntdown_timer(game_time);
 	
 	/* display score (initialized to 0) */
-	//display_score(score);
+	display_score(score);
 	
 	/* display remaining lives (initialized to 1) */
 	//display_lives(num_lives);
@@ -396,7 +394,7 @@ void pacman_dynamics(Direction_TypeDef direction)
 					incremented_lives = TRUE;
 					num_lives++;
 					modified_lives=TRUE;
-					//display_lives(num_lives);
+					display_lives(num_lives);
 				} 
 			} 
 			else 
@@ -503,7 +501,7 @@ void restart_after_hit(){
 	display_pacman(PCMN->row, PCMN->col, PCMN->row_old, PCMN->col_old);
 	
 	computePath=TRUE;
-	//display_lives(num_lives);
+	display_lives(num_lives);
 	
 	enable_timer(1);
 	respawn_time = RESPAWN_TIME;
@@ -551,27 +549,4 @@ Direction_TypeDef opposite_direction(Direction_TypeDef dir){
 	
 }
 
-void send_parameters_CAN(uint16_t score, uint8_t num_lives, uint8_t game_time){
-	
-	static uint32_t msg;
-	
-	msg = score | (num_lives << 16) | (game_time << 24);
-	
-	/* score */
-	CAN_TxMsg.data[0] = msg & 0x000000FF;
-	CAN_TxMsg.data[1] = (msg & 0x0000FF00) >> 8;
-	
-	/* remaining lives */
-	CAN_TxMsg.data[2] = (msg & 0x00FF0000) >> 16;
-	
-	/* countdown timer */
-	CAN_TxMsg.data[3] = (msg & 0xFF000000) >> 24;
-	
-	CAN_TxMsg.len = 4;
-	CAN_TxMsg.id = 1;
-	CAN_TxMsg.format = STANDARD_FORMAT;
-	CAN_TxMsg.type = DATA_FRAME;
-	CAN_wrMsg (1, &CAN_TxMsg);               /* transmit message */
-		
-}
 

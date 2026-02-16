@@ -96,7 +96,6 @@ int hit_wall(Direction_TypeDef direction);
 Object_TypeDef hit_pill(Direction_TypeDef direction);
 void pacman_dynamics(Direction_TypeDef direction);
 Direction_TypeDef opposite_direction(Direction_TypeDef dir);
-void send_parameters_CAN(uint16_t score, uint8_t num_lives, uint8_t game_time);
 
 
 
